@@ -13,6 +13,12 @@ describe("Check Repo", () => {
       assert.equal(repo.type, "service");
       assert.equal(repo.name, "ab_service_user_manager");
    });
+   it("finds ab_service in the AI org", () => {
+      process.env["INPUT_REPOSITORY"] = "CruGlobal-AI/ab_service_user_manager";
+      const repo = checkRepo();
+      assert.equal(repo.type, "service");
+      assert.equal(repo.name, "ab_service_user_manager");
+   });
    it("not from ds", () => {
       process.env["INPUT_REPOSITORY"] = "random_org/ab_service_user_manager";
       const repo = checkRepo();

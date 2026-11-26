@@ -5,6 +5,7 @@ async function installAb() {
    const folder = core.getInput("folder") || "AppBuilder";
    const stack = core.getInput("stack") || "ab";
    const runtime = core.getInput("runtime") || null;
+   const abCli = core.getInput("ab_cli") || "CruGlobal-AI/ab-cli";
    const installOpts = [
       `--stack=${stack}`,
       `--port=${core.getInput("port") || 80}`,
@@ -29,7 +30,7 @@ async function installAb() {
 
    core.startGroup("Installing AppBuilder");
 
-   await exec.exec(`npm i https://github.com/CruGlobal/ab-cli -g`);
+   await exec.exec(`npm i https://github.com/${abCli} -g`);
 
    await exec.exec(`appbuilder install ${folder}`, installOpts);
    core.endGroup();
