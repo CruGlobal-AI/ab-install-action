@@ -17,8 +17,12 @@ inputs:
       description: "Runtime to use for ab_runtime test"
       required: false
       default: null
+   ab_cli:
+      description: "GitHub repo to install ab-cli from (owner/name)"
+      required: false
+      default: "CruGlobal-AI/ab-cli"
    repository:
-      description: "Repository name, ex CruGlobal/repo"
+      description: "Repository name, ex CruGlobal-AI/repo"
       default: ${{ github.repository }}
 
 # outputs:

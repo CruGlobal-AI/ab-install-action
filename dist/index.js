@@ -3435,11 +3435,14 @@ exports.debug = debug; // for test
 
 const core = __nccwpck_require__(186);
 
+// Orgs that host AppBuilder service repos (upstream + AI fork).
+const AB_ORGS = ["CruGlobal", "CruGlobal-AI"];
+
 function checkRepo() {
    const [org, repo] = core.getInput("repository").split("/");
    core.info("input", core.getInput("repository"));
    // console.log("repo", repo);
-   if (org == "CruGlobal") {
+   if (AB_ORGS.includes(org)) {
       if (repo.includes("ab_service_")) {
          return { type: "service", name: repo };
       }
@@ -3467,6 +3470,7 @@ async function installAb() {
    const folder = core.getInput("folder") || "AppBuilder";
    const stack = core.getInput("stack") || "ab";
    const runtime = core.getInput("runtime") || null;
+   const abCli = core.getInput("ab_cli") || "CruGlobal-AI/ab-cli";
    const installOpts = [
       `--stack=${stack}`,
       `--port=${core.getInput("port") || 80}`,
@@ -3491,7 +3495,7 @@ async function installAb() {
 
    core.startGroup("Installing AppBuilder");
 
-   await exec.exec(`npm i https://github.com/CruGlobal/ab-cli -g`);
+   await exec.exec(`npm i https://github.com/${abCli} -g`);
 
    await exec.exec(`appbuilder install ${folder}`, installOpts);
    core.endGroup();

@@ -1,10 +1,13 @@
 const core = require("@actions/core");
 
+// Orgs that host AppBuilder service repos (upstream + AI fork).
+const AB_ORGS = ["CruGlobal", "CruGlobal-AI"];
+
 function checkRepo() {
    const [org, repo] = core.getInput("repository").split("/");
    core.info("input", core.getInput("repository"));
    // console.log("repo", repo);
-   if (org == "CruGlobal") {
+   if (AB_ORGS.includes(org)) {
       if (repo.includes("ab_service_")) {
          return { type: "service", name: repo };
       }
