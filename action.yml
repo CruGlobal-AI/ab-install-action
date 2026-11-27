@@ -17,6 +17,10 @@ inputs:
       description: "Runtime to use for ab_runtime test"
       required: false
       default: null
+   skip_main_db:
+      description: "Only set up the test stack DB (ab-cli install --skipMainDB). CI tests only use the test stack. Saves ~40s."
+      required: false
+      default: "true"
    ab_cli:
       description: "GitHub repo to install ab-cli from (owner/name)"
       required: false

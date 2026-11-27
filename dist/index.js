@@ -3488,6 +3488,9 @@ async function installAb() {
    ];
 
    if (runtime) installOpts.push(`--runtime=${runtime}`);
+   // Tests only run on the test stack, so skip the main stack DB setup (~40s).
+   if (core.getInput("skip_main_db") !== "false")
+      installOpts.push("--skipMainDB");
 
    core.startGroup("Initiliazing Docker Swarm");
    await exec.exec("docker swarm init");
